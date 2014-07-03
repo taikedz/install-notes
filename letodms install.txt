@@ -1,0 +1,7 @@
+LetoDMS install notes
+
+1/ Download link
+
+http://downloads.sourceforge.net/project/mydms/LetoDMS/LetoDMS-4.0.0-RC1/LetoDMS-4.0.0-RC1.zip
+
+2/ 
