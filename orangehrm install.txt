@@ -43,7 +43,7 @@ apachectl restart
 	event_scheduler=ON
 
 # if you are using MariaDB 10.*
-# edit orangehrm-3.1.1/install.php ; fine line
+# edit orangehrm-3.1.1/install.php ; find line
 
 	if(intval(substr($mysqlHost,0,1)) < 4 || substr($mysqlHost,0,3) === '4.0')
 

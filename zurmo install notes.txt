@@ -17,8 +17,7 @@ create user, database
 	GRANT ALL PRIVILEGES ON zurmodb.* TO 'zurmo'@'localhost';
 	FLUSH PRIVILEGES;
 
-apt-get install php5-memcache memcached php-pear build-essential php5-dev
-apt-get install mcrypt curl php5-{mcrypt,curl,apcu,ldap,imap}
+apt-get install php5-memcache memcached php-pear build-essential php5-dev mcrypt curl php5-{mcrypt,curl,apcu,ldap,imap,mysql}
 
 # a couple of the INI files do not go to the right place
 # only on custom ubuntu apache servers - double check destination!
@@ -42,7 +41,7 @@ max_allowed_packet	= 20M
 local-infile
 
 # edit /etc/mysql/conf.d/mariadb.cnf
-# add lines
+# add lines in [mysqld] group
 max_sp_recursion_depth = 20
 thread_stack = 512K
 optimizer_search_depth = 0
