@@ -1,0 +1,50 @@
+eGroupWare install notes
+
+Best run on RHEL/CentOS
+
+1/ Set up EPEL enterprise
+
+# actually not needed yet
+#rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
+#rpm -Uvh http://www.elrepo.org/elrepo-release-6-6.el6.elrepo.noarch.rpm
+
+	# sets up EPEL
+	rpm -Uvh http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+	rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+
+2/ Enable Remi and update packages
+
+Edit /etc/yum.repos.d/remi.repo
+Set the [remi] section to enabled=1
+
+then run
+	yum install php mysql-server
+to update PHP and install MySQL
+
+3/ Repo install procedure
+
+	cd /etc/yum.repos.d/
+	wget http://download.opensuse.org/repositories/server:eGroupWare/CentOS_6/server:eGroupWare.repo
+	yum install egroupware-epl
+
+
+Note we do not have the signing keys for the added repos... will get warning on install
+
+4/ Reconfigure PHP
+
+	upload_max_filesize = 16M
+	date.timezone = "Europe/London"
+	service httpd restart
+
+5/ Add /usr/share/egroupware as symlink in /var/www/html and reown to apache:apache
+
+6/ Go to http://localhost/egroupware and fill in the setup steps
+(in future, access this same page via http://egroupware/setup/index.php and log in as header)
+
+Choose to view the header.inc.php file; write this to /var/lib/egroupware/header/inc/php
+
+7/ Continue steps; login to config with the appropriate creds
+
+Provide the db root login and run the install; re-check install, you will need to then set up users
+
+Create an admin user, logout
