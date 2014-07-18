@@ -1,27 +1,49 @@
-eGroupWare install notes
+Install eGroupWare on CentOS 6.5
+===
 
-Best run on RHEL/CentOS
+What is eGroupWare?
+---
+
+eGroupWare aims to be pretty much an all-in-one solution for collaboration in small and medium offices (and even small enterprise). It features calendar and email management, access control lists, a documenbt store, a wiki engine, a site builder, and much more.
+
+What I found
+---
+
+Just following a basic install (and I had to refer to other, fairly old blogs to collate this info) doesn't seem to give a ready-to-go setup out fo the box. The interface looks clunky, but mostly intuitive at first, until you actually try to do some proper configuration. I still haven't found out how to set up user groups, the Wiki engine is... very bare bones, despite its WYSIWYG editor (and I see no way to create new wiki pages) and the super user doesn't have rights to view the built-in site area.
+
+As I say, it needs more configuration than the documentation would have you think...
+
+eGroupWare's installation "guide" is pretty sparse and not very clear as well. The guide talks about "EPL" but I think the community edition is non-EPL? Are there actual differences when it comes to installing?
+
+Well, it's clear as mud. These notes are intended to clarify this.
+
+Installation
+===
 
 1/ Set up EPEL enterprise
+---
 
-# actually not needed yet
-#rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
-#rpm -Uvh http://www.elrepo.org/elrepo-release-6-6.el6.elrepo.noarch.rpm
+Set up EPEL
 
-	# sets up EPEL
 	rpm -Uvh http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
 	rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
 
 2/ Enable Remi and update packages
+---
 
 Edit /etc/yum.repos.d/remi.repo
 Set the [remi] section to enabled=1
 
 then run
+
 	yum install php mysql-server
+
 to update PHP and install MySQL
 
+# run mysqlsetup procedure to set up root access and remove test/demo content
+
 3/ Repo install procedure
+---
 
 	cd /etc/yum.repos.d/
 	wget http://download.opensuse.org/repositories/server:eGroupWare/CentOS_6/server:eGroupWare.repo
@@ -31,14 +53,26 @@ to update PHP and install MySQL
 Note we do not have the signing keys for the added repos... will get warning on install
 
 4/ Reconfigure PHP
+---
 
 	upload_max_filesize = 16M
 	date.timezone = "Europe/London"
 	service httpd restart
 
-5/ Add /usr/share/egroupware as symlink in /var/www/html and reown to apache:apache
+5/ Add to the web area
+---
 
-6/ Go to http://localhost/egroupware and fill in the setup steps
+Add /usr/share/egroupware as symlink in /var/www/html
+
+reown the directory to apache:apache
+
+	chown -R apache:apache /var/www/html /var/www/html/
+
+6/ Perform web install
+---
+
+Go to http://localhost/egroupware and fill in the setup steps
+
 (in future, access this same page via http://egroupware/setup/index.php and log in as header)
 
 Choose to view the header.inc.php file; write this to /var/lib/egroupware/header/inc/php
