@@ -1,12 +1,20 @@
 Tasks for a new server
+===
 
-+++
+After installing a new server, a few extra steps are necessary
+
 Security
+---
 
 Edit/create root password -- enable root access
 
+	sudo passwd root
+
 Remove std user from sudo
-gpasswd -d username sudo
+
+	sudo gpasswd -d username sudo
+
+At this point, we want to log out as standard user, and log back in to make the change take effect for our current session, and then `su -` to root
 
 Lock down iptables
 keep ssh port open, and maybe http/ssl port

@@ -49,11 +49,12 @@ to update PHP and install MySQL
 	wget http://download.opensuse.org/repositories/server:eGroupWare/CentOS_6/server:eGroupWare.repo
 	yum install egroupware-epl
 
-
 Note we do not have the signing keys for the added repos... will get warning on install
 
 4/ Reconfigure PHP
 ---
+
+Find these lines and modify
 
 	upload_max_filesize = 16M
 	date.timezone = "Europe/London"
@@ -62,22 +63,22 @@ Note we do not have the signing keys for the added repos... will get warning on 
 5/ Add to the web area
 ---
 
-Add /usr/share/egroupware as symlink in /var/www/html
+Add eGroupWare to the std apache install
 
-reown the directory to apache:apache
-
+	ln -s /usr/share/egroupware /var/www/html/egw
 	chown -R apache:apache /var/www/html /var/www/html/
 
 6/ Perform web install
 ---
 
-Go to http://localhost/egroupware and fill in the setup steps
+Go to `http://localhost/egw` and fill in the setup steps
 
-(in future, access this same page via http://egroupware/setup/index.php and log in as header)
+(in future, access this same page via `http://egw/setup/index.php` and log in as header)
 
-Choose to view the header.inc.php file; write this to /var/lib/egroupware/header/inc/php
+Choose to view the `header.inc.php` file; write this to `/var/lib/egroupware/header/inc/php`
 
 7/ Continue steps; login to config with the appropriate creds
+---
 
 Provide the db root login and run the install; re-check install, you will need to then set up users
 

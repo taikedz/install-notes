@@ -1,14 +1,33 @@
 Siwapp installation notes
+===
+
+You need to be root
+
+	su -
 
 1/ Download siwapp TGZ
+---
 
-http://www.siwapp.org/downloads/siwapp_0_4_1.beta.tar.gz
+	wget http://www.siwapp.org/downloads/siwapp_0_4_1.beta.tar.gz
 
-2/ unpack to (anywhere) and chown to www-data:www-data
+2/ Unpack
+---
 
-3/ a2enmod rewrite
+	cd /usr/share
+	mkdir webhosts
+	cd webhosts
+	tar -xf siwapp_0_4_1.beta.tar.gz
+	chown -R www-data:www-data siwapp
 
-4/ Create virtual host with servername specified to desired
+3/ Enable mod_rewrite
+---
+
+	a2enmod rewrite
+
+4/ Create virtual host
+---
+
+with servername specified to desired
 
 Add this name to whichever /etc/hosts are relevant, as well as the one on the server!
 
@@ -21,6 +40,7 @@ enable xml2enc if necessary
 6/ Restart apache
 
 7/ Create database user
+
 	CREATE USER 'siwapp'@'localhost' IDENTIFIED BY 'siwapp';
 	GRANT ALL PRIVILEGES ON siwappdb.* TO 'siwapp'@'localhost';
 	CREATE DATABASE siwappdb;
@@ -28,7 +48,7 @@ enable xml2enc if necessary
 
 8/ After running through install pages, remove write access on files:
 
-chmod a-w /usr/share/siwapp/config/databases.yml /usr/share/siwapp/web/config.php
+	chmod a-w /usr/share/siwapp/config/databases.yml /usr/share/siwapp/web/config.php
 
 ===
 Configure email:
