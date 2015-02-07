@@ -18,9 +18,9 @@ It effectively omits all comments and blank lines :-)
 
 ## Configuration
 
-Edit the /etc/squid3/squid.conf file
+Edit the `/etc/squid3/squid.conf` file
 
-You will find that it is _riddled_ with documentation that may be overwhelming. Use the find function of your editor to hop to the right places. All directives start at the beginning of the line, so if you can search using regexes, use the '^#?\s*' pattern before a directive to speed things up. (this matches start of line, maybe a '#' commentor, and potential whitspace)
+You will find that it is _riddled_ with documentation that may be overwhelming. Use the find function of your editor to hop to the right places. All directives start at the beginning of the line, so if you can search using regexes, use the `^#?\s*` pattern before a directive to speed things up. (this matches start of line, maybe a '#' comment marker, and potential whitespace)
 
 ### Port
 
@@ -32,7 +32,7 @@ You may also want to configure the location of the cached files, and their quant
 
 	cache_dir ufs /home/proxy/cache/ 5000 32 256
 
-I moved mine to /home/proxy/cache/ after creating the needed directories, because I had more space on /home partition than in root, but this is up to you. You could mount another drive and point the cache_dir there. You can have as many cache_dir locations as you want.
+I moved mine to `/home/proxy/cache/` after creating the needed directories, because I had more space on /home partition than in root, but this is up to you. You could mount another drive and point the cache_dir there. You can have as many cache_dir locations as you want.
 
 The '50000' is the number of megabytes of cache to maintain - in this instance, shy of 5GB. 'ufs' is the squid storage type, and the last two numbers are the number of subdirectories to create. Read the paragraph preceding this directive in the conf file for more info.
 
@@ -43,7 +43,7 @@ You need at minimum to allow
 * input on the port you specifid squid to listen on
 * forwarding
 
-The firewalling script at https://github.com/handy-scripts in bin/firewall gives you sane defaults for this.
+The firewalling script at <https://github.com/taikedz/handy-scripts/blob/master/bin/firewall> gives you sane defaults for this.
 
 ## Restart squid proxy
 
@@ -64,4 +64,18 @@ Choose to use Manual proxy configuration, and point it at your server's name, an
 	localhost, 127.0.0.1
 
 Click OK. This should be all you need.
+
+# Caching apt / Linux systemwide proxying
+
+Probably the most useful application for this is the download of large files - say, updating multiple distros at a time.
+
+You can do the following to set a system wide proxy:
+
+	export http://<proxy_ip>:<proxy_port>
+
+Put that either in the /etc/profile file or set it in your shell before running upgrades.
+
+The first machine configured in this way will cause the download of packages from the internet -- run this update first before other machines.
+
+Any subsequent machine to request the same packages will receive them from the proxy- this not chewing up your bandwidth and speeding up the process!
 
