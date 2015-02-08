@@ -26,6 +26,14 @@ You will find that it is _riddled_ with documentation that may be overwhelming. 
 
 By default, the squid proxy's port is 3128, declared by the `http_port` directive. I changed mine to 80, you could change it to 8080, or anything you wish... just remember to configure the firewall appropriately.
 
+### Access
+
+Locate the ACL directives - these define lists that are later used in other directives. You don't need to add anything here necessarily, but it's good to know they exist.
+
+Locate the http_access directives - these will determine what hosts can connect to the proxy for servicing.
+
+Add a `http_access allow all` instead of deny all to allow access from all hosts that access it. Fine tune with individual entries if you want more granular control.
+
 ### Cache directory configuration
 
 You may also want to configure the location of the cached files, and their quantity, which you can find at the directive `cache_dir`
