@@ -77,5 +77,13 @@ Put that either in the /etc/profile file or set it in your shell before running 
 
 The first machine configured in this way will cause the download of packages from the internet -- run this update first before other machines.
 
-Any subsequent machine to request the same packages will receive them from the proxy- this not chewing up your bandwidth and speeding up the process!
+Any subsequent machine to request the same packages will receive them from the proxy- thus not chewing up your bandwidth and speeding up the process!
 
+# Check the status of the proxy
+
+Run this command to see stats for the proxy:
+
+	squidclient -p 80 cache_object://localhost/info | grep -A10 Cache
+
+
+u don't need to be root for this;you just need the squidclient.
